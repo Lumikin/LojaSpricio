@@ -1,0 +1,10 @@
+const express = require('express')
+const router = express.Router()
+
+//referencia do arquivo de rotas
+const { produtoRoutes } = require('./prdutoRoutes')
+
+
+router.use('/', produtoRoutes);
+
+module.exports = { router }
