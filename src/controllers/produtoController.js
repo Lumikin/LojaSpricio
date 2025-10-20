@@ -2,6 +2,15 @@ const { produtoModel } = require('../models/produtoModel')
 const produtoController = {
 
     buscarTodosProdutos: async (req, res) => {
+        /**
+         * Retorna os produtos cadastrados no banco de dados 
+         *  Rota: GET /produtos
+         * @async
+         * @function buscarTodosProdutos
+         * @param {*} req Objeto de manipulação HTTP
+         * @param {*} res Objeto de resposta HTTP
+         * @returns {Promise<Array<<object>>} Conteudo com os dados da requisição
+         */
         try {
             const resultado = await produtoModel.selecionarTodos();
             if(resultado.length === 0){
