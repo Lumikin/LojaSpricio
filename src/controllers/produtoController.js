@@ -1,16 +1,16 @@
 const { produtoModel } = require('../models/produtoModel')
 const produtoController = {
-
+    /**
+             * Retorna os produtos cadastrados no banco de dados 
+             *  Rota: GET /produtos
+             * @async
+             * @function buscarTodosProdutos
+             * @param {*} req Objeto de manipulação HTTP
+             * @param {*} res Objeto de resposta HTTP
+             * @returns {Promise<Array<<object>>} Conteudo com os dados da requisição
+             */
     buscarTodosProdutos: async (req, res) => {
-        /**
-         * Retorna os produtos cadastrados no banco de dados 
-         *  Rota: GET /produtos
-         * @async
-         * @function buscarTodosProdutos
-         * @param {*} req Objeto de manipulação HTTP
-         * @param {*} res Objeto de resposta HTTP
-         * @returns {Promise<Array<<object>>} Conteudo com os dados da requisição
-         */
+
 
         try {
             const resultado = await produtoModel.selecionarTodos();
@@ -24,7 +24,17 @@ const produtoController = {
             res.status(500).json({ message: 'Ocorreu um erro no servidor', errorMessage: error.message })
         }
     },
+    /**
+     * Retorna o produto referente ao id_produto pesquisado
+     * Rota: GET /Produtos/:idProduto
+     * @async
+     * @function buscarProdutoId 
+     * @param {Request} req Objeto da Requisição HTTP
+     * @param {Response} res Objeto da resposta HTTP
+     * @returns {Promise<Array<Object>>} Retorna objeto contendo os dados do produto pesquisado
+     */
     buscarProdutoId: async (req, res) => {
+
         try {
             const id = req.params.idProduto
             if (!id || !Number.isInteger(id)) {
