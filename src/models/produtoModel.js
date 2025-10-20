@@ -1,7 +1,5 @@
 const pool = require('../config/db');
-const produtoModel = {
-
-    /**
+/**
      * Seleciona todos os produtos cadastrados na tabela
      * @async
      * @function selecionarTodos
@@ -16,6 +14,8 @@ const produtoModel = {
      * ]
      * 
      */
+    
+const produtoModel = {
     
     //select todos os produtos
     
@@ -45,8 +45,16 @@ const produtoModel = {
         const values = [pID]
         const [rows] = await pool.query(sql, values)
         return rows;
-    }
+    },
 
+
+    inserirProduto: async (pDescrição, pValores) => {
+        const sql = 'INSERT INTO produtos (descrição, valor) VALUES (?,?);';
+        const values = [pDescrição, pValores]
+        const [rows] = await pool.query(sql, values)
+        console.log(rows);
+        return rows
+    } 
 
 }
 module.exports = { produtoModel }

@@ -1,5 +1,8 @@
-const { produtoModel } = require('../models/produtoModel')
+const { produtoModel }=require('../models/produtoModel');
+
+
 const produtoController = {
+    
     /**
              * Retorna os produtos cadastrados no banco de dados 
              *  Rota: GET /produtos
@@ -8,7 +11,8 @@ const produtoController = {
              * @param {*} req Objeto de manipulação HTTP
              * @param {*} res Objeto de resposta HTTP
              * @returns {Promise<Array<<object>>} Conteudo com os dados da requisição
-             */
+    */
+
     buscarTodosProdutos: async (req, res) => {
 
 
@@ -24,6 +28,7 @@ const produtoController = {
             res.status(500).json({ message: 'Ocorreu um erro no servidor', errorMessage: error.message })
         }
     },
+
     /**
      * Retorna o produto referente ao id_produto pesquisado
      * Rota: GET /Produtos/:idProduto
@@ -33,6 +38,7 @@ const produtoController = {
      * @param {Response} res Objeto da resposta HTTP
      * @returns {Promise<Array<Object>>} Retorna objeto contendo os dados do produto pesquisado
      */
+
     buscarProdutoId: async (req, res) => {
 
         try {
@@ -46,8 +52,25 @@ const produtoController = {
             console.error(error)
             res.status(500).json({ message: 'Ocorreu um erro no servidor', errorMessage: error.message })
         }
-    }
+    },
+     incluirProduto: async (req, res) => {
+        try {
+            const { descricao, valor} = req.body
+            if (!String(descricao)|| descricao.length < 3 || valor <= 0){
+                return res.status(400).json({message: 'Dados Invalidos'})
+            }
+            const resultado = await produtoModel.inserirProduto(descricao, valor);
+            if (resultado.affectedRows === 1 && resultado.insertId != 0){
+                res.status(201).json({ message: 'Registro incluido com sucesso', result:resultado})
+            } else {
+                throw new Error('ocorreu um erro ao incluir o registro')
+            }
+        } catch (error) {
+            console.error(error)
+            res.status(500).json({Message: 'Ocorreu um erro no servidor.', errorMessage: error.message})
+        }
+     } 
 };
 
 
-export { produtoController }
+module.exports = { produtoController }
