@@ -105,6 +105,32 @@ const produtoController = {
             res.status(500).json({ Message: 'Ocorreu um erro no servidor.', errorMessage: error.message })
         }
 
+    },
+    excluirProduto: async (req, res) => {
+        try {
+            const id = number(req.params.idProduto)
+            if (!id || !Number.isInteger(id)) {
+                return req.status(400).json({ message: "Forneça um ID valido!" })
+            }
+            const consulta = await produtoModel.selecionarPorId(id);
+            if (consulta.length === 0) {
+                throw new Error("Registro não localizado");
+
+            }
+            else {
+                const resultado = await produtoModel.deleteProduto(id);
+                if (affectedRows === 1) {
+                    res.status(201).json({ message: "Produto excluido com sucesso ", data: resultado })
+                }
+                else{
+                    throw new Error("Não foi possivel excluir o produto");
+                    
+                }
+            }
+        } catch (error) {
+            console.error(error)
+            res.status(500).json({ Message: 'Ocorreu um erro no servidor.', errorMessage: error.message })
+        }
     }
 
 };
