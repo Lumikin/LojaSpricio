@@ -108,7 +108,7 @@ const produtoController = {
     },
     excluirProduto: async (req, res) => {
         try {
-            const id = number(req.params.idProduto)
+            const id = Number(req.params.idProduto)
             if (!id || !Number.isInteger(id)) {
                 return req.status(400).json({ message: "Forneça um ID valido!" })
             }
@@ -119,12 +119,12 @@ const produtoController = {
             }
             else {
                 const resultado = await produtoModel.deleteProduto(id);
-                if (affectedRows === 1) {
+                if (resultado.affectedRows === 1) {
                     res.status(201).json({ message: "Produto excluido com sucesso ", data: resultado })
                 }
-                else{
+                else {
                     throw new Error("Não foi possivel excluir o produto");
-                    
+
                 }
             }
         } catch (error) {
