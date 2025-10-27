@@ -16,8 +16,15 @@ const clienteModel = {
         const [rows] = await pool.query(sql, values);
         console.log(rows);
         return rows;
+    },
+    verificarCPF: async (consultarCPF) =>{
+        const sql = 'SELECT cpfCliente FROM clientes;';
+        const values = [consultarCPF];
+        const [rows] = await pool.query(sql, values);
+        console.log(rows);
+        return rows;
     }
-
+    
 
 }
 

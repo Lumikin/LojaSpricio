@@ -22,7 +22,7 @@ const clienteController = {
             if (!nome || nome.length < 3 || !String(nome) || !Number(cpf) ||cpf.length != 11) {
                 return res.status(400).json({ message: 'Dados invalidos' })
             }
-            const consultarCPF = await clienteModel.selecionarTodos()
+            const consultarCPF = await clienteModel.verificarCPF(cpf)
             if (consultarCPF === cpf) {
                 return res.status(409).json({ message: "Cpf já cadastrado!" })
 
