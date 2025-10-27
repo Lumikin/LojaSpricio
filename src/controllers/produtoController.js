@@ -64,9 +64,7 @@ const produtoController = {
 
     incluirProduto: async (req, res) => {
         try {
-            console.log(req.body)
             const { descricao, valor } = req.body;
-
             if (!descricao || descricao.length < 3 || valor <= 0) {
                 return res.status(400).json({ message: 'Dados Invalidos' })
             }
@@ -80,7 +78,35 @@ const produtoController = {
             console.error(error)
             res.status(500).json({ Message: 'Ocorreu um erro no servidor.', errorMessage: error.message })
         }
+    },
+    atualizarProduto: async (req, res) => {
+        try {
+            const idProduto = Number(req.params.idProduto) // <= validacao para numeral
+            let { descricao, valor } = req.body
+            descricao = descricao.trim();
+            if (!idProduto || !descricao || !valor || typeof idProduto !== 'number' || !isNaN(descricao) || isNaN(valor) || descricao.trim().length < 3) {
+                return res.status(400).json({ message: "Verifique os dados enviados e tente novamente!" });
+            }
+            const produtoAtual = await produtoModel.selecionarPorId(idProduto)
+            if (produtoAtual.length === 0) {
+                throw new Error("Registro não localizado");
+            }
+
+            const novaDescricao = descricao.trim() ?? produtoAtual[0].descricao;
+            const novoValor = valor ?? produtoAtual[0].valor;
+            const resultado = await produtoModel.alterarProduto(idProduto, novaDescricao, novoValor);
+            if (resultado.changedRows === 0) {
+                throw new Error("Ocorreu um erro ao atualizar o produto");
+
+            }
+            return res.status(200).json({ message: "Registro atualizado com sucesso", data: resultado })
+        } catch (error) {
+            console.error(error)
+            res.status(500).json({ Message: 'Ocorreu um erro no servidor.', errorMessage: error.message })
+        }
+
     }
+
 };
 
 

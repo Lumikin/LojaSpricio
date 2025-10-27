@@ -72,6 +72,32 @@ const produtoModel = {
         const [rows] = await pool.query(sql, values);
         console.log(rows);
         return rows;
+    },
+    /**
+     * @async
+     * @param {String} pID
+     * @param {String} pDescricao
+     * @param {number} pValores 
+     * @returns {Promise<object>} Restorna um objeto contendo propriedades que representas as informações do comando executado
+     * @example
+     *  const produtos = await produtoModel.inserirProduto(1,'Produto teste', 16.99);
+     * //saida
+     * "result": {
+     *      "fieldCount": 0,
+     *      "affectedRows": 1,
+     *      "insetID" : 0,
+     *      "info": "",
+     *      "serverStatus": 2,
+     *      "warningStatus": 0,
+     *      "changedRows": 1
+     * }
+     */
+    alterarProduto: async (pId, pDescricao, pValores) => { // <= tem que ser na forma como esta sendo chamada!
+        const sql = 'UPDATE produtos SET descricao=?, valor=? WHERE id_produto=?;';
+        const values = [pDescricao, pValores, pId];
+        const [rows] = await pool.query(sql, values);
+        console.log(rows);
+        return rows;
     }
 
 }
