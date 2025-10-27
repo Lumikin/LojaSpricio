@@ -1,8 +1,8 @@
-const { produtoModel }=require('../models/produtoModel');
+const { produtoModel } = require('../models/produtoModel');
 
 
 const produtoController = {
-    
+
     /**
              * Retorna os produtos cadastrados no banco de dados 
              *  Rota: GET /produtos
@@ -17,7 +17,7 @@ const produtoController = {
 
 
         try {
-            const resultado = await produtoModel.selecionarTodos();
+            const resultado = await produtoModel.selecionarTodos( );
             if (resultado.length === 0) {
                 return res.status(200).json({ message: 'A tabela não contém dados' })
 
@@ -42,9 +42,9 @@ const produtoController = {
     buscarProdutoId: async (req, res) => {
 
         try {
-            const id = req.params.idProduto
+            const id = Number(req.params.idProduto)
             if (!id || !Number.isInteger(id)) {
-                response.status(400).json({ Message: 'Forneça um indentificador (ID) valido' })
+                res.status(400).json({ Message: 'Forneça um indentificador (ID) valido' })
             }
             const resultadoId = await produtoModel.selecionarPorId(id);
             res.status(200).json({ Message: 'Resultados dos dados listados', data: resultadoId })
@@ -53,23 +53,25 @@ const produtoController = {
             res.status(500).json({ message: 'Ocorreu um erro no servidor', errorMessage: error.message })
         }
     },
-     incluirProduto: async (req, res) => {
+    incluirProduto: async (req, res) => {
         try {
-            const { descricao, valor} = req.body
-            if (!String(descricao)|| descricao.length < 3 || valor <= 0){
-                return res.status(400).json({message: 'Dados Invalidos'})
+            console.log(req.body)
+            const { descricao, valor } = req.body;
+
+            if (!descricao || descricao.length < 3 || valor <= 0) {
+                return res.status(400).json({ message: 'Dados Invalidos' })
             }
             const resultado = await produtoModel.inserirProduto(descricao, valor);
-            if (resultado.affectedRows === 1 && resultado.insertId != 0){
-                res.status(201).json({ message: 'Registro incluido com sucesso', result:resultado})
+            if (resultado.affectedRows === 1 && resultado.insertId != 0) {
+                res.status(201).json({ message: 'Registro incluido com sucesso', result: resultado })
             } else {
                 throw new Error('ocorreu um erro ao incluir o registro')
             }
         } catch (error) {
             console.error(error)
-            res.status(500).json({Message: 'Ocorreu um erro no servidor.', errorMessage: error.message})
+            res.status(500).json({ Message: 'Ocorreu um erro no servidor.', errorMessage: error.message })
         }
-     } 
+    }
 };
 
 

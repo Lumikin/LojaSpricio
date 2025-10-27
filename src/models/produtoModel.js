@@ -14,11 +14,11 @@ const pool = require('../config/db');
      * ]
      * 
      */
-    
+
 const produtoModel = {
-    
+
     //select todos os produtos
-    
+
     selecionarTodos: async () => {
         const sql = 'SELECT * FROM produtos;';
         const [rows] = await pool.query(sql)
@@ -48,13 +48,13 @@ const produtoModel = {
     },
 
 
-    inserirProduto: async (pDescrição, pValores) => {
-        const sql = 'INSERT INTO produtos (descrição, valor) VALUES (?,?);';
-        const values = [pDescrição, pValores]
-        const [rows] = await pool.query(sql, values)
+    inserirProduto: async (pDescricao, pValores) => {
+        const sql = 'INSERT INTO produtos (descricao, valor) VALUES (?,?);';
+        const values = [pDescricao, pValores];
+        const [rows] = await pool.query(sql, values);
         console.log(rows);
-        return rows
-    } 
+        return rows;
+    }
 
 }
 module.exports = { produtoModel }
