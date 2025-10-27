@@ -47,6 +47,24 @@ const produtoModel = {
         return rows;
     },
 
+   /**
+     * @async
+     * @param {String} pDescricao
+     * @param {number} pValores 
+     * @returns {Promise<object>} Restorna um objeto contendo propriedades que representas as informações do comando executado
+     * @example
+     *  const produtos = await produtoModel.inserirProduto('Produto teste', 16.99);
+     * //saida
+     * "result": {
+     *      "fieldCount": 0,
+     *      "affectedRows": 1,
+     *      "insetID" : 11,
+     *      "info": "",
+     *      "serverStatus": 2,
+     *      "warningStatus": 0,
+     *      "changedRows": 0
+     * }
+     */
 
     inserirProduto: async (pDescricao, pValores) => {
         const sql = 'INSERT INTO produtos (descricao, valor) VALUES (?,?);';

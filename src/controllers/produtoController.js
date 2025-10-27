@@ -17,7 +17,7 @@ const produtoController = {
 
 
         try {
-            const resultado = await produtoModel.selecionarTodos( );
+            const resultado = await produtoModel.selecionarTodos();
             if (resultado.length === 0) {
                 return res.status(200).json({ message: 'A tabela não contém dados' })
 
@@ -47,12 +47,21 @@ const produtoController = {
                 res.status(400).json({ Message: 'Forneça um indentificador (ID) valido' })
             }
             const resultadoId = await produtoModel.selecionarPorId(id);
-            res.status(200).json({ Message: 'Resultados dos dados listados', data: resultadoId })
+            res.status(200).json({ Message: 'Resultado dos dados listados', data: resultadoId })
         } catch (error) {
             console.error(error)
             res.status(500).json({ message: 'Ocorreu um erro no servidor', errorMessage: error.message })
         }
     },
+
+    /**
+     * Cria novo item na base de dados
+     * @param {Request} req  Objeto da requisição HTTP
+     * @param {Response} res  Objeto da resposta HTTP
+     * @function incluirProduto
+     * @returns {Promise<Object>} Retorna objeto contendo as informações sobre o resultado do insert
+     */
+
     incluirProduto: async (req, res) => {
         try {
             console.log(req.body)
