@@ -18,7 +18,7 @@ const clienteModel = {
         return rows;
     },
     verificarCPF: async (consultarCPF) =>{
-        const sql = 'SELECT cpfCliente FROM clientes;';
+        const sql = 'SELECT * FROM clientes WHERE cpfClientes=?;';
         const values = [consultarCPF];
         const [rows] = await pool.query(sql, values);
         console.log(rows);
