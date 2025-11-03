@@ -23,13 +23,12 @@ const clienteController = {
                 return res.status(400).json({ message: 'Dados invalidos' })
             }
             const consultarCPF = await clienteModel.verificarCPF(cpf)
-            if (consultarCPF === cpf) {
-                return res.status(409).json({ message: "Cpf já cadastrado!" })
+            if (consultarCPF.length > 0) {
+                return res.status(409).json({ message: "Cpf já esta cadastrado!" })
 
             }
-            console.log(consultarCPF)
             const resultado = await clienteModel.inserirCliente(nome, cpf)
-            if (resultado.affectedRows === 1 && resultado.insertId != 0) {
+            if (resultado.affectedRows === 1 && resultado.insertId !== 0) {
                 res.status(201).json({ message: 'Registro incluido com sucesso', result: resultado })
             } else {
                 throw new Error('ocorreu um erro ao incluir o registro')

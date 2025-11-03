@@ -88,7 +88,7 @@ const produtoController = {
                 return res.status(400).json({ message: "Verifique os dados enviados e tente novamente!" });
             }
             const produtoAtual = await produtoModel.selecionarPorId(idProduto)
-            if (produtoAtual.length === 0) {
+            if (!produtoAtual || produtoAtual.length === 0) {
                 throw new Error("Registro não localizado");
             }
 
