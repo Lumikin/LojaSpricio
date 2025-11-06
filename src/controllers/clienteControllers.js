@@ -43,7 +43,7 @@ const clienteController = {
             if (!id || !Number.isInteger(id)) {
                 return res.status(400).json({ message: "Forneça um ID valido!" })
             }
-            const consulta = await clienteModel.deleteCliente(id);
+            const consulta = await clienteModel.selecionarPorId(id);
             if (consulta.length === 0) {
                 throw new Error("Registro não localizado");
 
