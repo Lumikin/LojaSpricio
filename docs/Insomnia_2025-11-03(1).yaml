@@ -1,0 +1,263 @@
+type: collection.insomnia.rest/5.0
+name: Loja Spricio
+meta:
+  id: wrk_20ce9908de094faabee5dc7fccb70da1
+  created: 1760983831416
+  modified: 1760983831416
+  description: ""
+collection:
+  - name: Produtos
+    meta:
+      id: fld_869f64dc4acc450cb1cbe9d88c28107d
+      created: 1761583764914
+      modified: 1761583827764
+      sortKey: -1761583764914
+      description: ""
+    children:
+      - url: http://localhost:8081/Produtos/
+        name: Selecionar todos os produtos
+        meta:
+          id: req_9bdb664f11c74a5fa8149bfd944845f2
+          created: 1760985196886
+          modified: 1761583787445
+          isPrivate: false
+          description: ""
+          sortKey: -1761583769221
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/Produtos/1
+        name: Incluir um registro
+        meta:
+          id: req_782359c43e3d41e3b58b4c0bc656aec7
+          created: 1760985290878
+          modified: 1761583785851
+          isPrivate: false
+          description: ""
+          sortKey: -1761583769271
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/produtos
+        name: Inserir registro
+        meta:
+          id: req_6354ca97b8e449a7bfb60f384c2acb71
+          created: 1760987300227
+          modified: 1761583788699
+          isPrivate: false
+          description: ""
+          sortKey: -1761583769196
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"descricao": "Teste", 
+            	"valor" : 12.12
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/produtos/1
+        name: Atualizar Registro
+        meta:
+          id: req_13942f2edcbc4296bbce9c37dd33b212
+          created: 1761569033895
+          modified: 1761583790773
+          isPrivate: false
+          description: ""
+          sortKey: -1761583769183.5
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"descricao": "Tomato",
+            	"valor": 5
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/Produtos/3
+        name: Deletar Registro
+        meta:
+          id: req_317f640914a94d70988b40c35b0fa041
+          created: 1761581558652
+          modified: 1761583769192
+          isPrivate: false
+          description: ""
+          sortKey: -1761583769171
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Clientes
+    meta:
+      id: fld_442d68253ed04f669bcf0c313a0a2c18
+      created: 1761583804395
+      modified: 1761583804395
+      sortKey: -1761583804395
+      description: ""
+    children:
+      - url: http://localhost:8081/clientes
+        name: Listar Cliente
+        meta:
+          id: req_c6c9d520eb964e80b26f450bbe9c3501
+          created: 1761583833248
+          modified: 1762167581847
+          isPrivate: false
+          description: ""
+          sortKey: -1761583836885
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/clientes
+        name: Adicionar Cliente
+        meta:
+          id: req_43a39535c2cb4e0d94174f24eb364d01
+          created: 1761587420564
+          modified: 1762197313346
+          isPrivate: false
+          description: ""
+          sortKey: -1761583836985
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "LucasM",
+            	"cpf": "44534590874"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/clientes/1
+        name: New Request
+        meta:
+          id: req_7c6816de0e5141e69f1e4d0c81d72b84
+          created: 1762195286660
+          modified: 1762195823941
+          isPrivate: false
+          description: ""
+          sortKey: -1762195286660
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Luciano",
+            	"cpf": 49211409871
+            	
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8081/clientes/82
+        name: New Request
+        meta:
+          id: req_807851d6b89f4ec6a3839aea7b2e3827
+          created: 1762196624087
+          modified: 1762197217210
+          isPrivate: false
+          description: ""
+          sortKey: -1762196624087
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_ef33f07aa653a58cc14121feceb9bc7ee005a457
+    created: 1760983831435
+    modified: 1760983831435
+environments:
+  name: Base Environment
+  meta:
+    id: env_ef33f07aa653a58cc14121feceb9bc7ee005a457
+    created: 1760983831426
+    modified: 1760983831426
+    isPrivate: false
