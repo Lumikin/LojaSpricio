@@ -14,6 +14,25 @@ const clienteController = {
             res.status(500).json({ message: 'Ocorreu um erro no servidor', errorMessage: error.message })
         }
     },
+    selecionarCliente: async (req, res) => {
+        try {
+            const id = Number(req.params.idCliente)
+            if (!id || !Number.isInteger(id)) {
+                return res.status(400).json({ message: "Forneça um ID valido!" })
+            }
+            const resultado = clienteModel.selecionarPorId(id)
+            if (!resultado || resultado.length === 0) {
+                return res.status(200).json({ message: "Registro não encontrado!" })
+            }
+            else {
+                return res.status(200).json({ message: "Registro encontrado!", data: resultado })
+            }
+
+        } catch (error) {
+            console.error(error)
+            res.status(500).json({ Message: 'Ocorreu um erro no servidor.', errorMessage: error.message })
+        }
+    },
     adicionarCliente: async (req, res) => {
         try {
             const { nome, cpf } = req.body;
