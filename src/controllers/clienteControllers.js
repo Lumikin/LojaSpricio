@@ -75,15 +75,20 @@ const clienteController = {
             if (!ClienteAtual || ClienteAtual.length === 0) {
                 throw new Error("Registro não localizado");
             }
-
             const novoNome = nome.trim() ?? ClienteAtual[0].nomeCLiente;
             const novoCpf = cpf ?? ClienteAtual[0].cpfCliente;
+            console.log(cpf, nome)
+            const consultarCPF = await clienteModel.verificarCPF(novoCpf)
+            if (consultarCPF.length > 0) {
+                return res.status(409).json({ message: "Cpf já esta cadastrado!" })
+
+            }
             const resultado = await clienteModel.alterarCliente(idCliente, novoNome, novoCpf);
             if (resultado.changedRows === 0) {
                 throw new Error("Ocorreu um erro ao atualizar o produto");
 
             }
-            console.log(cpf, nome)
+
             return res.status(200).json({ message: "Registro atualizado com sucesso", data: resultado })
         } catch (error) {
             console.error(error)
