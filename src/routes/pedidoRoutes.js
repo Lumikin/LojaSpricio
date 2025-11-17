@@ -6,5 +6,9 @@ pedidoRoutes.post(
     '/pedidos',
     pedidoController.criarpedido
 )
+pedidoRoutes.post(
+    '/pedidos/item',
+    pedidoController.CriarItem
+)
 
 module.exports = { pedidoRoutes }

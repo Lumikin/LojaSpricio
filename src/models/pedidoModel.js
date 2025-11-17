@@ -15,7 +15,7 @@ const pedidoModel = {
 
             // insert 2 tabela de itens_pedido
             const sqlItem = 'INSERT INTO itens_pedidos (id_pedido_fk, id_produto_fk, quantidade, valor_item) VALUES (?,?,?,?);'
-            const valuesItem = [rowsPedido.insertPedido, pIdProduto, pQuantidadeItem, pValorItem];
+            const valuesItem = [rowsPedido.insertId, pIdProduto, pQuantidadeItem, pValorItem];
             const [rowsItem] = await connection.query(sqlItem, valuesItem);
 
             connection.commit();
@@ -28,6 +28,25 @@ const pedidoModel = {
 
         }
 
+    },
+    insertItem: async (pIdPedido, pIdProduto, pQuantidadeItem, pValorItem) => {
+        const connection = await pool.getConnection();
+        try {
+            await connection.beginTransaction();
+            const sqlItem = 'INSERT INTO itens_pedidos (id_pedido_fk, id_produto_fk, quantidade, valor_item) VALUES (?,?,?,?);';
+            const valuesItem = [pIdPedido, pIdProduto, pQuantidadeItem, pValorItem];
+            const [rowsItem] = await connection.query(sqlItem, valuesItem);
+
+            const sqlPedido = 'UPDATE pedidos SET valor_total = valor_total +(?*?) WHERE id_pedido = ?;';
+            const valuesPedido = [pQuantidadeItem, pValorItem, pIdPedido];
+            const [rowPedido] = await connection.query(sqlPedido, valuesPedido);
+            connection.commit();
+            return { rowsItem, rowPedido }
+
+        } catch (error) {
+            connection.rollback;
+            throw error;
+        }
     }
 }
 
